@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "release:stage": "npx standard-version --prerelease alpha --skip.changelog --no-verify"
+    "start": "next start"
   },
   "dependencies": {
     "next": "12.2.3",
