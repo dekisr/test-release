@@ -10,14 +10,15 @@ jobs:
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
-        with:
-          ref: ${GITHUB_HEAD_REF}
 
       - name: 'Bump and commit alpha release'
         run: |
+          git fetch origin
+          git merge origin/${GITHUB_HEAD_REF}
           git config --global user.email "github@eskolare.com.br"
           git config --global user.name "eskobot"
+          git checkout 
           npx standard-version --prerelease alpha --skip.changelog --no-verify
 
-      - name: 'Push'
+      - name: 'Push changes to the opened pr branch'
         run: git push origin HEAD:${GITHUB_HEAD_REF}
