@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/dekisr/test-release/compare/v1.1.0...v1.1.1) (2022-08-02)
+
+
+### :nut_and_bolt:  Correções
+
+* **build:** fix build process add ignore builds script ([9bc4c14](https://github.com/dekisr/test-release/commit/9bc4c143fc717dddb3c11223aa7546b493ade68b))
+
 ## [1.1.0](https://github.com/dekisr/test-release/compare/v1.0.0...v1.1.0) (2022-08-02)
 
 
