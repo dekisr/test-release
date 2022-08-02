@@ -4,7 +4,7 @@ on:
       - main
 name: release
 jobs:
-  release:
+  release-pull_request:
     runs-on: ubuntu-latest
     outputs:
       pr: ${{ steps.release-pr.outputs.pr }}
@@ -12,24 +12,36 @@ jobs:
       - id: release-pr
         uses: google-github-actions/release-please-action@v3
         with:
+          command: release-pr
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: test-release
           default-branch: main
           changelog-types: '[{"type":"feat","section":":sparkles:  Funcionalidades"},{"type":"fix","section":":nut_and_bolt:  Correções"},{"type":"docs","section":":blue_book:  Documentações"},{"type":"style","section":":lipstick:  Interface/Usabilidade"},{"type":"refactor","section":":lollipop:  Refatorações"},{"type":"perf","section":":steam_locomotive:  Melhorias de Performance"},{"type":"test","section":":chains:  Testes"},{"type":"build","section":":hammer_and_wrench: Configurações do Projeto"},{"type":"ci","hidden":true},{"type":"chore","hidden":true},{"type":"revert","hidden":true}]'
-  merge-release:
+  merge-pull_request:
     runs-on: ubuntu-latest
-    needs: release
+    needs: release-pull_request
     steps:
       - id: merge
-        if: ${{ needs.release.outputs.pr }}
+        if: ${{ needs.release-pull_request.outputs.pr }}
         uses: actions/github-script@v6
         with:
           script: |
-            const pr = ${{ needs.release.outputs.pr }}
+            const pr = ${{ needs.release-pull_request.outputs.pr }}
             await github.rest.pulls.merge({
               merge_method: "merge",
               owner: context.repo.owner,
               pull_number: pr.number,
               repo: context.repo.repo,
             })
+  github-release:
+      runs-on: ubuntu-latest
+      needs: [release-pull_request, merge-pull_request]
+      steps:
+        - id: github-release
+          uses: google-github-actions/release-please-action@v3
+          with:
+            command: github-release
+            token: ${{ secrets.GITHUB_TOKEN }}
+            release-type: node
+            package-name: test-release
