@@ -13,9 +13,11 @@ jobs:
 
       - name: 'Bump and commit alpha release'
         run: |
+          git fetch origin
+          git checkout -b ${GITHUB_HEAD_REF} origin/${GITHUB_HEAD_REF}
           git config --global user.email "github@eskolare.com.br"
           git config --global user.name "eskobot"
           npx standard-version --prerelease alpha --skip.changelog --no-verify
 
-      - name: 'Push'
-        run: git push
+      - name: 'Push changes to the opened pr branch'
+        run: git push origin ${GITHUB_HEAD_REF}
