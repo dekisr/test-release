@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v3
+        with:
+          ref: ${GITHUB_HEAD_REF}
 
       - name: 'Bump and commit alpha release'
         run: |
