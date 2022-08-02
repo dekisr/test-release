@@ -15,8 +15,8 @@ jobs:
         run: |
           git fetch origin
           git checkout -b ${GITHUB_HEAD_REF} origin/${GITHUB_HEAD_REF}
-          git config --global user.email "github@eskolare.com.br"
-          git config --global user.name "eskobot"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
           npx standard-version --prerelease alpha --skip.changelog --no-verify
 
       - name: 'Push changes to the opened pr branch'
