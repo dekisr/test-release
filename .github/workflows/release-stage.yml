@@ -1,29 +1,23 @@
 on:
-  push:
+  pull_request:
     branches:
       - stage
+    types: [opened, synchronize]
 name: release-stage
 jobs:
   release-stage:
     runs-on: ubuntu-latest
     steps:
-      - id: release-pr
-        uses: google-github-actions/release-please-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: node
-          package-name: test-release
-          default-branch: stage
-          changelog-types: '[{"type":"feat","section":":sparkles:  Funcionalidades"},{"type":"fix","section":":nut_and_bolt:  Correções"},{"type":"docs","section":":blue_book:  Documentações"},{"type":"style","section":":lipstick:  Interface/Usabilidade"},{"type":"refactor","section":":lollipop:  Refatorações"},{"type":"perf","section":":steam_locomotive:  Melhorias de Performance"},{"type":"test","section":":chains:  Testes"},{"type":"build","section":":hammer_and_wrench: Configurações do Projeto"},{"type":"ci","hidden":true},{"type":"chore","hidden":true},{"type":"revert","hidden":true}]'
-      - id: merge
-        if: ${{ steps.release-pr.outputs.pr }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const pr = ${{ steps.release-pr.outputs.pr }}
-            await github.rest.pulls.merge({
-              merge_method: "merge",
-              owner: context.repo.owner,
-              pull_number: pr.number,
-              repo: context.repo.repo,
-            })
+      - name: 'Checkout repository'
+        uses: actions/checkout@v3
+
+      - name: 'Bump and commit alpha release'
+        run: |
+          git fetch origin
+          git checkout -b ${GITHUB_HEAD_REF} origin/${GITHUB_HEAD_REF}
+          git config --global user.email "github@eskolare.com.br"
+          git config --global user.name "eskobot"
+          npx standard-version --prerelease alpha --skip.changelog --no-verify
+
+      - name: 'Push changes to the opened pr branch'
+        run: git push origin ${GITHUB_HEAD_REF}
