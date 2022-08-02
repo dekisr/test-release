@@ -20,11 +20,11 @@ jobs:
     needs: release
     steps:
       - id: merge
-        if: ${{ jobs.release.steps.release-pr.outputs.pr }}
+        if: ${{ release.steps.release-pr.outputs.pr }}
         uses: actions/github-script@v6
         with:
           script: |
-            const pr = ${{ jobs.release.steps.release-pr.outputs.pr }}
+            const pr = ${{ release.steps.release-pr.outputs.pr }}
             await github.rest.pulls.merge({
               merge_method: "merge",
               owner: context.repo.owner,
