@@ -18,4 +18,4 @@ jobs:
           npx standard-version --prerelease alpha --skip.changelog --no-verify
 
       - name: 'Push'
-        run: git push
+        run: git push origin HEAD:${GITHUB_HEAD_REF}
