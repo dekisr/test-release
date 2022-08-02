@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/dekisr/test-release/compare/v1.1.1...v1.2.0) (2022-08-02)
+
+
+### :sparkles:  Funcionalidades
+
+* **build:** finally ([a2128c7](https://github.com/dekisr/test-release/commit/a2128c790830d65f1b2312c153aa9688d9ba75d4))
+
 ## [1.1.1](https://github.com/dekisr/test-release/compare/v1.1.0...v1.1.1) (2022-08-02)
 
 
