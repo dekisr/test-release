@@ -6,6 +6,8 @@ name: release
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      pr: ${{ steps.release-pr.outputs.pr }}
     steps:
       - id: release-pr
         uses: google-github-actions/release-please-action@v3
@@ -20,11 +22,11 @@ jobs:
     needs: release
     steps:
       - id: merge
-        if: ${{ release.steps.release-pr.outputs.pr }}
+        if: ${{ needs.release.outputs.pr }}
         uses: actions/github-script@v6
         with:
           script: |
-            const pr = ${{ release.steps.release-pr.outputs.pr }}
+            const pr = ${{ needs.release.outputs.pr }}
             await github.rest.pulls.merge({
               merge_method: "merge",
               owner: context.repo.owner,
