@@ -14,8 +14,7 @@ jobs:
       - name: 'Bump and commit alpha release'
         run: |
           git fetch origin
-          git checkout -b ${GITHUB_HEAD_REF}
-          git merge origin/${GITHUB_HEAD_REF}
+          git checkout -b ${GITHUB_HEAD_REF} origin/${GITHUB_HEAD_REF}
           git config --global user.email "github@eskolare.com.br"
           git config --global user.name "eskobot"
           npx standard-version --prerelease alpha --skip.changelog --no-verify
