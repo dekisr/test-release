@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/dekisr/test-release/compare/v1.4.0...v1.4.1) (2022-10-17)
+
+
+### :nut_and_bolt:  Correções
+
+* **build:** test user ([48d9c24](https://github.com/dekisr/test-release/commit/48d9c24d581ae46b50e2c40a6e48ecf15b6f1964))
+
 ## [1.4.0](https://github.com/dekisr/test-release/compare/v1.3.0...v1.4.0) (2022-10-17)
 
 
