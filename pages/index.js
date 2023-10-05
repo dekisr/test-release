@@ -17,6 +17,7 @@ export default function Home() {
         </h1>
 
         <h2>{process.env.NEXT_PUBLIC_VERCEL_URL}</h2>
+        <h2>{process.env.NEXT_PUBLIC_VERCEL_ENV}</h2>
 
         <p className={styles.description}>
           Get started by editing{' '}
